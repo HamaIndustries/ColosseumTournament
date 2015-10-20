@@ -26,9 +26,9 @@ class fighter:
 
     #self explanatory.
     def __init__(self, inStr):
-        inL=inStr.split("\n")
+        inL=[i.strip() for i in inStr.split("\n")]
         name=inL[0]
-        skills=[i.replace(" ","_") for i in inL[1].split(",")]
+        skills=[i.replace(" ","_").replace("+","plus").lower() for i in inL[1].split(",")]
         HP=inL[2]
         strength=inL[3]
         skills=inL[4]
@@ -43,7 +43,7 @@ class fighter:
     def setEnemy(self, badGuy):
         self.enemy=badGuy
 
-class passAbils:
+class actAbils:
     def cloak():
         pass
     def pavise():
@@ -109,8 +109,81 @@ class passAbils:
     def defense_seal():
         pass
 
-class actAbils:
-    pass
+class passAbils:
+    def critplus():
+        pass
+    def avoid():
+        pass
+    def hpplus():
+        pass
+    def axefaire():
+        pass
+    def lancefaire():
+        pass
+    def discipline_sword():
+        pass
+    def discipline_wind():
+        pass
+    def discipline_light():
+        pass
+    def discipline_lance():
+        pass
+    def discipline_bow():
+        pass
+    def discipline_thunder():
+        pass
+    def discipline_axe():
+        pass
+    def discipline_fire():
+        pass
+    def defensive_formation():
+        pass
+    def demoiselle():
+        pass
+    def distinguished():
+        pass
+    def patience():
+        pass
+    def resolve():
+        pass
+    def wrath():
+        pass
+    def gamble():
+        pass
+    def vengeance():
+        pass
+    def quick_burn():
+        pass
+    def cold_blooded():
+        pass
+    def aggressor():
+        pass
+    def limit_break():
+        pass
+    def nihil(): #possibly to be deprecated
+        pass
+    def toxicity():
+        pass
+    def mantle():
+        pass
+    def dragonskin():
+        pass
+    def miracle():
+        pass
+    def galeforce():
+        pass
+    def imbue():
+        pass
+    def renewal():
+        pass
+    def lifetaker():
+        pass
+    def leaching_phantom():
+        pass
+    def miasmatic_phantom():
+        pass
+    def prescient_victory():
+        pass
 
 
 class weapon:
