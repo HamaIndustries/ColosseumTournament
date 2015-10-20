@@ -244,7 +244,4 @@ class weapon:
 
 
 print("Colosseum Tournament calc v1. Remember,\nno errors are checked. Please input\nthe correct data.")
-foters=open(os.path.dirname(os.path.realpath(__file__))+"input.txt","r").read().split("-------")
-
-
-
+foters=open(os.path.dirname(os.path.realpath(__file__))+"/input.txt","r").read().split("-------")
