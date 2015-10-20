@@ -30,7 +30,7 @@ class fighter:
     def __init__(self, inStr):
         inL=[i.strip().lower() for i in inStr.split("\n")]
         self.name=inL[0]
-        self.skills=[i.replace(" ","_").replace("+","plus").strip() for i in inL[1].split(",")]
+        self.skills=[i.strip().replace(" ","_").replace("+","plus") for i in inL[1].split(",")]
         self.HP=inL[2]
         self.strength=inL[3]
         self.skill=inL[4]
