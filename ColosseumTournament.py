@@ -1,4 +1,5 @@
 import os
+import random as r
 
 class fighter:
     name=None
@@ -33,9 +34,14 @@ class fighter:
 
     #self explanatory.
     def __init__(self, inStr):
-        inL=[i.strip().lower() for i in inStr.split("\n")]
+        inL=[i.strip() for i in inStr.split("\n")]
+        try:
+            for i in range(inL.count("")):
+                inL.remove("")
+        except Error:
+            pass
         self.name=inL[0]
-        self.skills=[i.strip().replace(" ","_").replace("+","plus") for i in inL[1].split(",")]
+        self.skills=[i.strip().replace(" ","_").replace("+","plus").lower() for i in inL[1].split(",")]
         self.HP=inL[2]
         self.strength=inL[3]
         self.skill=inL[4]
@@ -48,7 +54,7 @@ class fighter:
         self.wepB_hit=inL[11]
         self.wepB_crit=inL[12]
         self.wepB_wt=inL[13]
-        self.wepAbil=[i.strip().replace(" ","_").replace("+","plus") if not i.strip().replace(" ","_").replace("+","plus")=="hex" else "hex_"  for i in inL[14].split(",")]
+        self.wepAbil=[i.strip().replace(" ","_").replace("+","plus").lower() if not i.strip().replace(" ","_").replace("+","plus")=="hex" else "hex_"  for i in inL[14].split(",")]
 
     #sets enemy player for skills such as stun/defense seal/etc
     def setEnemy(self, badGuy):
@@ -289,8 +295,9 @@ class weapon:
             self.CRIT = 0
             self.WEIGHT = 7
 
+print("\nColosseum Tournament calc v1 -- normal mode.\n+--------------------------------------+\nRemember, no errors are checked. Please input the correct data.\n\n")
 
-print("\nColosseum Tournament calc v1 -- normal mode.\n+--------------------------------------+\nRemember,no errors are checked. Please input the correct data.\n\n")
+#Opens fighter file, reads them & creates fighter objects
 foters=open(os.path.dirname(os.path.realpath(__file__))+"/input.txt","r").read().split("-------")
 fitr1=fighter(foters[0])
-print(vars(fitr1))
+fitr2=fighter(foters[1])
