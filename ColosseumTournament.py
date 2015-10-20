@@ -1,4 +1,4 @@
-fimport os
+import os
 
 class fighter:
     name=None
