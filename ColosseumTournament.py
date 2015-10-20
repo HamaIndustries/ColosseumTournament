@@ -17,6 +17,7 @@ class fighter:
     wepB_hit=None
     wepB_crit=None
     wepB_wt=None
+    wepAbil=None
 
     #temp stats
     t_HP=None
@@ -47,7 +48,7 @@ class fighter:
         self.wepB_hit=inL[11]
         self.wepB_crit=inL[12]
         self.wepB_wt=inL[13]
-        
+        self.wepAbil=[i.strip().replace(" ","_").replace("+","plus") if not i.strip().replace(" ","_").replace("+","plus")=="hex" else "hex_"  for i in inL[14].split(",")]
 
     #sets enemy player for skills such as stun/defense seal/etc
     def setEnemy(self, badGuy):
@@ -197,6 +198,39 @@ class passAbils:
     def prescient_victory():
         pass
 
+class wepAbils:
+    def life_drain():
+        pass
+    def slayer():
+        pass
+    def devil():
+        pass
+    def panic_heal():
+        pass
+    def panic_damage():
+        pass
+    def panic_crit():
+        pass
+    def panic_avoid():
+        pass
+    def toxicity():
+        pass
+    def balance():
+        pass
+    def hex_():
+        pass
+    def forceweave():
+        pass
+    def killer():
+        pass
+    def dancing_weapon():
+        pass
+    def power_weapon():
+        pass
+    def shielding_weapon():
+        pass
+    def none():
+        pass
 
 class weapon:
     MIGHT = None
@@ -259,4 +293,4 @@ class weapon:
 print("\nColosseum Tournament calc v1 -- normal mode.\n+--------------------------------------+\nRemember,no errors are checked. Please input the correct data.\n\n")
 foters=open(os.path.dirname(os.path.realpath(__file__))+"/input.txt","r").read().split("-------")
 fitr1=fighter(foters[0])
-fitr2=fighter(foters[1])
+print(vars(fitr1))
