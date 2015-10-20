@@ -4,9 +4,10 @@ class fighter:
     name=None
     
     #main stats
+    skills=None
     HP=None
     strength=None
-    skills=None
+    skill=None
     speed=None
     luck=None
     defense=None
@@ -16,6 +17,7 @@ class fighter:
     #temp stats
     t_HP=None
     t_strength=None
+    t_skill=None
     t_speed=None
     t_luck=None
     t_defense=None
@@ -27,15 +29,16 @@ class fighter:
     #self explanatory.
     def __init__(self, inStr):
         inL=[i.strip().lower() for i in inStr.split("\n")]
-        name=inL[0]
-        skills=[i.replace(" ","_").replace("+","plus").strip() for i in inL[1].split(",")]
-        HP=inL[2]
-        strength=inL[3]
-        speed=inL[4]
-        luck=inL[5]
-        defense=inL[6]
-        resist=inL[7]
-        wep=inL[8]
+        self.name=inL[0]
+        self.skills=[i.replace(" ","_").replace("+","plus").strip() for i in inL[1].split(",")]
+        self.HP=inL[2]
+        self.strength=inL[3]
+        self.skill=inL[4]
+        self.speed=inL[5]
+        self.luck=inL[6]
+        self.defense=inL[7]
+        self.resist=inL[8]
+        self.wep=inL[9]
         
 
     #sets enemy player for skills such as stun/defense seal/etc
