@@ -26,17 +26,16 @@ class fighter:
 
     #self explanatory.
     def __init__(self, inStr):
-        inL=[i.strip() for i in inStr.split("\n")]
+        inL=[i.strip().lower() for i in inStr.split("\n")]
         name=inL[0]
-        skills=[i.replace(" ","_").replace("+","plus").lower() for i in inL[1].split(",")]
+        skills=[i.replace(" ","_").replace("+","plus") for i in inL[1].split(",")]
         HP=inL[2]
         strength=inL[3]
-        skills=inL[4]
-        speed=inL[5]
-        luck=inL[6]
-        defense=inL[7]
-        resist=inL[8]
-        wep=inL[9]
+        speed=inL[4]
+        luck=inL[5]
+        defense=inL[6]
+        resist=inL[7]
+        wep=inL[8]
         
 
     #sets enemy player for skills such as stun/defense seal/etc
