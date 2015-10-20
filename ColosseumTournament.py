@@ -193,55 +193,55 @@ class weapon:
     WEIGHT = None
     def __init__(self,typ):
         if(typ=="sword"):
-            self.MIGHT = None
-            self.HIT = None
-            self.CRIT = None
-            self.WEIGHT = None
+            self.MIGHT = 1
+            self.HIT = 75
+            self.CRIT = 0
+            self.WEIGHT = 10
         if(typ=="lance"):
-            self.MIGHT = None
-            self.HIT = None
-            self.CRIT = None
-            self.WEIGHT = None
+            self.MIGHT = 3
+            self.HIT = 70
+            self.CRIT = 0
+            self.WEIGHT = 11
         if(typ=="axe"):
-            self.MIGHT = None
-            self.HIT = None
-            self.CRIT = None
-            self.WEIGHT = None
+            self.MIGHT = 5
+            self.HIT = 65
+            self.CRIT = 0
+            self.WEIGHT = 12
         if(typ=="bow"):
-            self.MIGHT = None
-            self.HIT = None
-            self.CRIT = None
-            self.WEIGHT = None
+            self.MIGHT = 2
+            self.HIT = 70
+            self.CRIT = 0
+            self.WEIGHT = 12
         if(typ=="knife"):
-            self.MIGHT = None
-            self.HIT = None
-            self.CRIT = None
-            self.WEIGHT = None
+            self.MIGHT = 0
+            self.HIT = 60
+            self.CRIT = 6
+            self.WEIGHT = 2
         if(typ=="light"):
-            self.MIGHT = None
-            self.HIT = None
-            self.CRIT = None
-            self.WEIGHT = None
+            self.MIGHT = 0
+            self.HIT = 75
+            self.CRIT = 0
+            self.WEIGHT = 5
         if(typ=="fire"):
-            self.MIGHT = None
-            self.HIT = None
-            self.CRIT = None
-            self.WEIGHT = None
+            self.MIGHT = 4
+            self.HIT = 65
+            self.CRIT = 0
+            self.WEIGHT = 7
         if(typ=="wind"):
-            self.MIGHT = None
-            self.HIT = None
-            self.CRIT = None
-            self.WEIGHT = None
+            self.MIGHT = 2
+            self.HIT = 70
+            self.CRIT = 0
+            self.WEIGHT = 6
         if(typ=="thunder"):
-            self.MIGHT = None
-            self.HIT = None
-            self.CRIT = None
-            self.WEIGHT = None
+            self.MIGHT = 3
+            self.HIT = 60
+            self.CRIT = 4
+            self.WEIGHT = 1
         if(typ=="dark"):
-            self.MIGHT = None
-            self.HIT = None
-            self.CRIT = None
-            self.WEIGHT = None
+            self.MIGHT = 6
+            self.HIT = 55
+            self.CRIT = 0
+            self.WEIGHT = 7
 
 
 print("Colosseum Tournament calc v1. Remember,\nno errors are checked. Please input\nthe correct data.")
