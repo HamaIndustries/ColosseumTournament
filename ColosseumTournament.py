@@ -13,6 +13,10 @@ class fighter:
     defense=None
     resist=None
     wep=None
+    wepB_mt=None
+    wepB_hit=None
+    wepB_crit=None
+    wepB_wt=None
 
     #temp stats
     t_HP=None
@@ -39,11 +43,17 @@ class fighter:
         self.defense=inL[7]
         self.resist=inL[8]
         self.wep=inL[9]
+        self.wepB_mt=inL[10]
+        self.wepB_hit=inL[11]
+        self.wepB_crit=inL[12]
+        self.wepB_wt=inL[13]
         
 
     #sets enemy player for skills such as stun/defense seal/etc
     def setEnemy(self, badGuy):
         self.enemy=badGuy
+
+    
 
 class actAbils:
     def cloak():
@@ -246,5 +256,7 @@ class weapon:
             self.WEIGHT = 7
 
 
-print("Colosseum Tournament calc v1. Remember,\nno errors are checked. Please input\nthe correct data.")
+print("\nColosseum Tournament calc v1 -- normal mode.\n+--------------------------------------+\nRemember,no errors are checked. Please input the correct data.\n\n")
 foters=open(os.path.dirname(os.path.realpath(__file__))+"/input.txt","r").read().split("-------")
+fitr1=fighter(foters[0])
+fitr2=fighter(foters[1])
