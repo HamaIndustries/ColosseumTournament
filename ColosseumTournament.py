@@ -1,3 +1,4 @@
+#TODO: beginning-of-round fullStats
 #note to self: use dir() to check contained functions
 import os
 import random as r
@@ -346,13 +347,13 @@ r.seed(seed)
 
 out.write("seed: "+str(seed)+"\n\n" +\
           ":----|:----|:----\n"+\
-          " |"+fitr1.name+"|"+fitr2.name+\
+          "(stat)|"+fitr1.name+"|"+fitr2.name+\
           "\n HP|"+str(fitr1.HP)+"|"+str(fitr2.HP)+\
           "\n Damage|"+str(fitr1.fullDamage)+"|"+str(fitr2.fullDamage)+\
           "\n Hit|"+str(fitr1.fullHit)+"|"+str(fitr2.fullHit)+\
           "\n Crit|"+str(fitr1.fullCrit)+"|"+str(fitr2.fullCrit)+\
-          "\n Passive Skill|"+str(fitr1.pasSkills).strip("[]")+"|"+str(fitr2.pasSkills).strip("[]")+\
-          "\n Passive Skill|"+str(fitr1.actSkills).strip("[]")+"|"+str(fitr2.actSkills).strip("[]"))
+          "\n Passive Skill|"+str(fitr1.pasSkills).strip("[]").strip("\'")+"|"+str(fitr2.pasSkills).strip("[]")+\
+          "\n Passive Skill|"+str(fitr1.actSkills).strip("[]").strip("\'")+"|"+str(fitr2.actSkills).strip("[]"))
 
 #start of round-by-round analysis
 while fitr1.HP>0 and fitr2.HP>0:
