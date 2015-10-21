@@ -26,6 +26,10 @@ class fighter:
     fullHit=0
     fullCrit=0
 
+    passTrigger=0
+    actTrigger=0
+    calc_d=0
+
     #temp stats
     HP=0
     t_strength=0
@@ -65,166 +69,181 @@ class fighter:
         self.wep_crit=int(inL[13])*2+self.wep.CRIT
         self.wep_wt=int(inL[14])+self.wep.WEIGHT
         self.wepAbil=[i.strip().replace(" ","_").replace("+","plus").lower() if not i.strip().replace(" ","_").replace("+","plus")=="hex" else "hex_"  for i in inL[15].split(",")]
+
         
 
     #note -- TODO:
     #If Weapon Weight > Consitution, than Attack Speed = Speed - (Weapon Weight - Constitution) Otherwise, Attack Speed = Speed.
-    #Avoid = (Attack Speed x 2) + Luck + bonuses (Weapon Triangle Advantage, Avoid +, Demoiselle, Flowing Strike, etc)
+    #Avoid = (Attack Speed x 2) + Luck + bonuses (Weapon Triangle Advantage, Avoid +, Demoiselle, Flowing Strike, etc)    
 
-    #sets enemy player for skills such as stun/defense seal/etc
-    def setEnemy(self, badGuy):
-        self.enemy=badGuy
-    
-
-    #calculates Damage, hit & crit AFTER setenemy
+    #calculates Damage, hit & crit
     #Strength (or Magic) + Weapon Might = Attack
     def calcStats(self):
         self.fullDamage+=self.strength+self.wep_mt
         self.fullHit=(self.wep_hit+2*self.skill+.5*self.luck)-(2*self.enemy.speed+self.enemy.luck)
         self.fullCrit=(self.wep_crit+.5*self.skill+5)-self.enemy.luck
 
-    
+    def prep(self, enemy):
+        self.enemy=enemy
+        calcStats()
+        self.calc_d=1
+
+    def postPrep(self, enemy):
+        pass
+
+class log:
+    out=""
+    oFile=None
+    def __init__(self, f):
+        self.oFile=f
+    def add(self,inp):
+        self.out+=str(inp)
+    def clear(self):
+        self.out=""
+    def push(self):
+        self.oFile.write("\n"+self.out)
+        
 
 class actAbils:
-    def cloak():
+    def cloak(target):
         pass
-    def pavise():
+    def pavise(target):
         pass
-    def stun():
+    def stun(target):
         pass
-    def astra():
+    def astra(target):
         pass
-    def adept():
+    def adept(target):
         pass
-    def colossus():
+    def colossus(target):
         pass
-    def roar():
+    def roar(target):
         pass
-    def ignis():
+    def ignis(target):
         pass
-    def tear():
+    def tear(target):
         pass
-    def impale():
+    def impale(target):
         pass
-    def flare():
+    def flare(target):
         pass
-    def sol():
+    def sol(target):
         pass
-    def luna():
+    def luna(target):
         pass
-    def flametongue():
+    def flametongue(target):
         pass
-    def flowing_strike():
+    def flowing_strike(target):
         pass
-    def aether():
+    def aether(target):
         pass
-    def slayer():
+    def slayer(target):
         pass
-    def lethality():
+    def lethality(target):
         pass
-    def bane():
+    def bane(target):
         pass
-    def counter():
+    def counter(target):
         pass
-    def maelstrom():
+    def maelstrom(target):
         pass
-    def sure_strike():
+    def sure_strike(target):
         pass
-    def corona():
+    def corona(target):
         pass
-    def balmwood_staff():
+    def balmwood_staff(target):
         pass
-    def shadow_cloak():
+    def shadow_cloak(target):
         pass
-    def dragon_blade():
+    def dragon_blade(target):
         pass
-    def vengeful_guardian():
+    def vengeful_guardian(target):
         pass
-    def soul_surge():
+    def soul_surge(target):
         pass
-    def pounce():
+    def pounce(target):
         pass
-    def hidden_blade():
+    def hidden_blade(target):
         pass
-    def blackfire_breath():
+    def blackfire_breath(target):
         pass
-    def defense_seal():
+    def defense_seal(target):
         pass
 
 class passAbils:
-    def critplus():
+    def critplus(target):
         pass
-    def avoid():
+    def avoid(target):
         pass
-    def hpplus():
+    def hpplus(target):
         pass
-    def axefaire():
+    def axefaire(target):
         pass
-    def lancefaire():
+    def lancefaire(target):
         pass
-    def discipline_sword():
+    def discipline_sword(target):
         pass
-    def discipline_wind():
+    def discipline_wind(target):
         pass
-    def discipline_light():
+    def discipline_light(target):
         pass
-    def discipline_lance():
+    def discipline_lance(target):
         pass
-    def discipline_bow():
+    def discipline_bow(target):
         pass
-    def discipline_thunder():
+    def discipline_thunder(target):
         pass
-    def discipline_axe():
+    def discipline_axe(target):
         pass
-    def discipline_fire():
+    def discipline_fire(target):
         pass
-    def defensive_formation():
+    def defensive_formation(target):
         pass
-    def demoiselle():
+    def demoiselle(target):
         pass
-    def distinguished():
+    def distinguished(target):
         pass
-    def patience():
+    def patience(target):
         pass
-    def resolve():
+    def resolve(target):
         pass
-    def wrath():
+    def wrath(target):
         pass
-    def gamble():
+    def gamble(target):
         pass
-    def vengeance():
+    def vengeance(target):
         pass
-    def quick_burn():
+    def quick_burn(target):
         pass
-    def cold_blooded():
+    def cold_blooded(target):
         pass
-    def aggressor():
+    def aggressor(target):
         pass
-    def limit_break():
+    def limit_break(target):
         pass
     def nihil(): #possibly to be deprecated
         pass
-    def toxicity():
+    def toxicity(target):
         pass
-    def mantle():
+    def mantle(target):
         pass
-    def dragonskin():
+    def dragonskin(target):
         pass
-    def miracle():
+    def miracle(target):
         pass
-    def galeforce():
+    def galeforce(target):
         pass
-    def imbue():
+    def imbue(target):
         pass
-    def renewal():
+    def renewal(target):
         pass
-    def lifetaker():
+    def lifetaker(target):
         pass
-    def leaching_phantom():
+    def leaching_phantom(target):
         pass
-    def miasmatic_phantom():
+    def miasmatic_phantom(target):
         pass
-    def prescient_victory():
+    def prescient_victory(target):
         pass
 
 class wepAbils:
@@ -357,7 +376,6 @@ out.write("seed: "+str(seed)+"\n\n" +\
 
 #start of round-by-round analysis
 while fitr1.HP>0 and fitr2.HP>0:
-    print("test")
     break
 
 out.close()
