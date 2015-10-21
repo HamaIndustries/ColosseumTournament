@@ -1,4 +1,22 @@
 #TODO: beginning-of-round fullStats
+"""
+TODO:
+
+Magic follows the trinity of magic as normal.
+Anima beats Light, Light beats Dark, and Dark beats Anima.
+The individual type of Anima magic doesn't matter, in terms of magic triangle.
+
+All Laguz use Strength as their stat of choice.
+It used to be that Chromatic Dragons used Magic and targeted
+Resistance, but that is no longer the case.
+
+Constitution is it's own stat, listed in the Weapon Section of the Wiki.
+Mounted/Flying Strength based units, Generals, Barons, Berserkers, and
+Warriors have 10 Con, foot Strength based units have 8, Mounted/Flying
+Magic users and Magic Barons have 5 Con, and Magic based foot units have 4 Con.
+"""
+
+
 #note to self: use dir() to check contained functions
 import os
 import random as r
@@ -16,6 +34,7 @@ class fighter:
     luck=0
     defense=0
     resist=0
+    
     wep=None
     wepB_mt=0
     wepB_hit=0
@@ -26,21 +45,61 @@ class fighter:
     fullHit=0
     fullCrit=0
 
-    passTrigger=0
-    actTrigger=0
-    calc_d=0
+    aSpeed=0
+    avoid=0
+
+    passTrigger=False
+    actTrigger=False
+    calc_d=False
+    roundStart=False
 
     #temp stats
-    HP=0
     t_strength=0
     t_skill=0
     t_speed=0
     t_luck=0
     t_defense=0
     t_resist=0
-    t_damage=0
-    t_hit=0
-    t_crit=0
+    
+    t_wep_mt=0
+    t_wep_hit=0
+    t_wep_crit=0
+    
+    t_aSpeed=0
+    t_avoid=0
+
+    
+
+    #enemy modifiers
+    e_strength=0
+    e_skill=0
+    e_speed=0
+    e_luck=0
+    e_defense=0
+    e_resist=0
+    
+    e_wep_mt=0
+    e_wep_hit=0
+    e_wep_crit=0
+    
+    e_aSpeed=0
+    e_avoid=0
+
+    #fighter modifiers
+
+    m_strength=0
+    m_skill=0
+    m_speed=0
+    m_luck=0
+    m_defense=0
+    m_resist=0
+    
+    m_wep_mt=0
+    m_wep_hit=0
+    m_wep_crit=0
+    
+    m_aSpeed=0
+    m_avoid=0
 
     #enemy. set AFTER both fighters are declared,
     enemy=None
@@ -79,17 +138,39 @@ class fighter:
     #calculates Damage, hit & crit
     #Strength (or Magic) + Weapon Might = Attack
     def calcStats(self):
-        self.fullDamage+=self.strength+self.wep_mt
-        self.fullHit=(self.wep_hit+2*self.skill+.5*self.luck)-(2*self.enemy.speed+self.enemy.luck)
-        self.fullCrit=(self.wep_crit+.5*self.skill+5)-self.enemy.luck
+        setTStats()
+        self.MIGHT+=self.t_strength+self.t_wep_mt
+        self.hitRate=(self.t_wep_hit+2*self.t_skill+.5*self.t_luck)-(2*self.enemy.t_speed+self.enemy.t_luck)
+        self.critRate+=(self.t_wep_crit+.5*self.t_skill+5)-self.enemy.t_luck
 
-    def prep(self, enemy):
-        self.enemy=enemy
-        calcStats()
-        self.calc_d=1
+    def prePrep(self, enemy):
+        self.enemy=enemy #make sure enemy is ready
 
+    def prep(self):
+        pass     #where preround abilities trigger
+
+    #TODO: not entirely sure what to do with this, will work on.
     def postPrep(self, enemy):
-        pass
+        pass 
+        ##self.calc_d=True #moved here so enemy stats can be calc'd first
+        #passive again
+        ##calcStats()  REMOVED for calcstats be per-attack now.
+
+    def setTStats(self):
+        self.t_strength=self.strength+self.e_strength+self.m_strength
+        self.t_skill=self.skill+self.e_skill+self.m_skill
+        self.t_speed=self.speed+self.e_speed+self.m_speed
+        self.t_luck=self.luck+self.e_luck+self.m_luck
+        self.t_defense=self.defense+self.e_defense+self.m_defense
+        self.t_resist=self.resist+self.e_resist+self.m_resist
+    
+        self.t_wep_mt=self.wep_mt+self.e_wep_mt+self.m_wep_mt
+        self.t_wep_hit=self.wep_hit+self.e_wep_hit+self.m_wep_hit
+        self.t_wep_crit=self.wep_crit+self.e_wep_crit+self.m_wep_crit
+    
+        self.t_avoid=self.avoid+e_avoid+m_avoid
+        
+        
 
 class log:
     out=""
@@ -101,8 +182,7 @@ class log:
     def clear(self):
         self.out=""
     def push(self):
-        self.oFile.write("\n"+self.out)
-        
+        self.oFile.write("\n"+self.out)       
 
 class actAbils:
     def cloak(target):
@@ -172,39 +252,84 @@ class actAbils:
 
 class passAbils:
     def critplus(target):
-        pass
-    def avoid(target):
-        pass
+        if not target.passTrigger:
+            target.m_wep_crit=15
+            target.passTrigger = True
+    def avoidplus(target):
+        if not target.passTrigger:
+            target.m_avoid=20
+            target.passTrigger = True
     def hpplus(target):
-        pass
+        if not target.passTrigger:
+            target.HP+=25
+            target.passTrigger = True
     def axefaire(target):
-        pass
+        if not target.passTrigger:
+            target.m_wep_mt=5
+            target.passTrigger = True
     def lancefaire(target):
-        pass
+        if not target.passTrigger:
+            target.m_wep_mt=3
+            target.m_wep_hit=10
+            target.passTrigger = True
     def discipline_sword(target):
-        pass
+        if not target.passTrigger:
+            target.m_wep_hit=20
+            target.passTrigger = True
     def discipline_wind(target):
-        pass
+        if not target.passTrigger:
+            target.m_wep_hit=20
+            target.passTrigger = True
     def discipline_light(target):
-        pass
+        if not target.passTrigger:
+            target.m_wep_hit=20
+            target.passTrigger = True
     def discipline_lance(target):
-        pass
+        if not target.passTrigger:
+            target.m_wep_hit=10
+            target.m_wep_mt=2
+            target.passTrigger = True
     def discipline_bow(target):
-        pass
+        if not target.passTrigger:
+            target.m_wep_hit=10
+            target.m_wep_mt=2
+            target.passTrigger = True
     def discipline_thunder(target):
-        pass
+        if not target.passTrigger:
+            target.m_wep_hit=10
+            target.m_wep_mt=2
+            target.passTrigger = True
     def discipline_axe(target):
-        pass
+        if not target.passTrigger:
+            target.m_wep_mt=4
+            target.passTrigger = True
     def discipline_fire(target):
-        pass
+        if not target.passTrigger:
+            target.m_wep_mt=4
+            target.passTrigger = True
     def defensive_formation(target):
-        pass
+        pass                     #TODO -- don't fully undertand mechanic yet
     def demoiselle(target):
-        pass
-    def distinguished(target):
-        pass
+        if not target.passTrigger:
+            target.enemy.e_wep_hit-=15
+            target.enemy.e_wep_crit-=5
+            target.passTrigger=True
+    def distinguished_son(target):
+        if not target.passTrigger:
+            target.enemy.e_wep_hit-=15
+            target.enemy.e_wep_crit-=5
+            target.passTrigger=True
+    def daunt(target):
+        if not target.passTrigger:
+            target.enemy.e_wep_hit-=15
+            target.enemy.e_wep_crit-=5
+            target.passTrigger=True
     def patience(target):
-        pass
+        if not target.passTrigger and target.enemy.calc_d:
+            if target.aSpeed < target.enemy.aSpeed:
+                target.wep_hit+=20
+                target.avoid+=20
+            target.passTrigger=True
     def resolve(target):
         pass
     def wrath(target):
@@ -373,6 +498,9 @@ out.write("seed: "+str(seed)+"\n\n" +\
           "\n Crit|"+str(fitr1.fullCrit)+"|"+str(fitr2.fullCrit)+\
           "\n Passive Skill|"+str(fitr1.pasSkills).strip("[]").strip("\'")+"|"+str(fitr2.pasSkills).strip("[]")+\
           "\n Passive Skill|"+str(fitr1.actSkills).strip("[]").strip("\'")+"|"+str(fitr2.actSkills).strip("[]"))
+
+#init fightLog
+fLog = log(out)
 
 #start of round-by-round analysis
 while fitr1.HP>0 and fitr2.HP>0:
