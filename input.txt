@@ -1,0 +1,33 @@
+Rosin
+Sure Strike
+Crit+
+85
+10
+25
+25
+10
+10
+10
+Bow
+10
+5
+0
+0
+Killer
+-------
+Kay
+HP+
+Counter
+150
+25
+15
+15
+10
+10
+10
+Axe
+10
+5
+0
+0
+Panic Heal
