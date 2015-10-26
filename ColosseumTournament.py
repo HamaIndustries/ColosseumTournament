@@ -335,6 +335,10 @@ class passAbils:
     def wrath(target):
         pass
     def gamble(target):
+         if not target.passTrigger:
+            target.m_wep_crit+=25
+            target.m_wep_hit-=25
+            target.passTrigger=True
         pass
     def vengeance(target):
         pass
