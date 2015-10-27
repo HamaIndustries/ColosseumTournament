@@ -381,14 +381,23 @@ class passAbils:
             target.luck+=2
             target.defense+=2
             target.resist+=2
+            target.passTrigger=True
         pass
     def nihil(): #possibly to be deprecated
         pass
     def toxicity(target):
         pass
     def mantle(target):
+        if not target.passTrigger:
+            target.enemy.wep_crit/=2 #Needs to know total crit added weapon crit for now -MK
+            target.enemy.strength-=3
+            target.passTrigger=True
         pass
     def dragonskin(target):
+        if not target.passTrigger:
+            target.enemy.wep_crit/=2 #See mantle
+            target.enemy.strength-=3
+            target.passTrigger=True
         pass
     def miracle(target):
         pass
