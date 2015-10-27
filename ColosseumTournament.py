@@ -1,4 +1,4 @@
-#TODO: beginning-of-round fullStats
+#TODO: prefight fullStats
 """
 TODO:
 
@@ -150,13 +150,10 @@ class fighter:
         pass     #where preround abilities trigger
 
     #TODO: not entirely sure what to do with this, will work on.
-    def postPrep(self, enemy):
-        pass 
-        ##self.calc_d=True #moved here so enemy stats can be calc'd first
-        #passive again
-        ##calcStats()  REMOVED for calcstats be per-attack now.
+    def postPrep(self):
+        pass
 
-    def setTStats(self):
+    def updateTStats(self):
         self.t_strength=self.strength+self.e_strength+self.m_strength
         self.t_skill=self.skill+self.e_skill+self.m_skill
         self.t_speed=self.speed+self.e_speed+self.m_speed
@@ -466,6 +463,26 @@ class weapon:
     def __str__():
         return typ
 
+
+#function that manages the fight
+def fight(fitr1, fitr2, output):
+    fitr1.prePrep(fitr2)
+    fitr2.prePrep(fitr1)
+    fitr1.prep()
+    fitr2.prep()
+    fitr1.postPrep()
+    fitr2.postPrep()
+    
+    #Update both Tstats
+    #find fighter speed difference & determine turn order
+    
+    while fitr1.HP>0 and fitr2.HP>0:
+    break
+
+
+
+#MAIN, out of a def because this ain't a module its a script
+
 print("\nColosseum Tournament calc v1 -- normal mode.\n+--------------------------------------+\nRemember, no errors are checked. Please input the correct data.\n\n")
 
 #Creates/opens output, writes errors to it
@@ -503,7 +520,6 @@ out.write("seed: "+str(seed)+"\n\n" +\
 fLog = log(out)
 
 #start of round-by-round analysis
-while fitr1.HP>0 and fitr2.HP>0:
-    break
+fight(fitr1, fitr2, fLog)
 
 out.close()
