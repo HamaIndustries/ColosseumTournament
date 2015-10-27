@@ -34,6 +34,7 @@ class fighter:
     luck=0
     defense=0
     resist=0
+    con=0
     
     wep=None
     wepB_mt=0
@@ -60,10 +61,12 @@ class fighter:
     t_luck=0
     t_defense=0
     t_resist=0
+    t_con=0
     
     t_wep_mt=0
     t_wep_hit=0
     t_wep_crit=0
+    t_wep_wt=0
     
     t_aSpeed=0
     t_avoid=0
@@ -77,10 +80,12 @@ class fighter:
     e_luck=0
     e_defense=0
     e_resist=0
+    e_con=0
     
     e_wep_mt=0
     e_wep_hit=0
     e_wep_crit=0
+    e_wep_wt=0
     
     e_aSpeed=0
     e_avoid=0
