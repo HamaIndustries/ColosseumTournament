@@ -389,7 +389,7 @@ class passAbils:
         pass
     def mantle(target):
         if not target.passTrigger:
-            target.enemy.wep_crit/=2 #Needs to know total crit added weapon crit for now -MK
+            target.enemy.wep_crit/=2 #Needs to know total crit added weapon crit for now (FullCrit?) -MK
             target.enemy.strength-=3
             target.passTrigger=True
         pass
