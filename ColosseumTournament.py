@@ -34,6 +34,7 @@ class fighter:
     luck=0
     defense=0
     resist=0
+    con=0
     
     wep=None
     wepB_mt=0
@@ -60,10 +61,12 @@ class fighter:
     t_luck=0
     t_defense=0
     t_resist=0
+    t_con=0
     
     t_wep_mt=0
     t_wep_hit=0
     t_wep_crit=0
+    t_wep_wt=0
     
     t_aSpeed=0
     t_avoid=0
@@ -77,10 +80,12 @@ class fighter:
     e_luck=0
     e_defense=0
     e_resist=0
+    e_con=0
     
     e_wep_mt=0
     e_wep_hit=0
     e_wep_crit=0
+    e_wep_wt=0
     
     e_aSpeed=0
     e_avoid=0
@@ -331,10 +336,34 @@ class passAbils:
                 target.avoid+=20
             target.passTrigger=True
     def resolve(target):
+        if not target.passTrigger
+            if target.hp < 50:
+                target.strength+=5
+                target.skill+=5
+                target.speed+=5
+                target.resolveOn=True
+                target.passTrigger=True
+        if target.hp > 50 and target.passTrigger:
+                target.strength-=5
+                target.skill-=5
+                target.speed-=5
+                target.passTrigger=False
         pass
     def wrath(target):
+        if not target.passTrigger
+            if target.HP < 50:
+                target.m_wep_crit+=30
+                target.wrathOn=True
+                target.passTrigger=True
+        if target.HP > 50 and target.passTrigger:
+            target.m_wep_crit-=30
+            target.passTrigger=False
         pass
     def gamble(target):
+         if not target.passTrigger:
+            target.m_wep_crit+=25
+            target.m_wep_hit-=25
+            target.passTrigger=True
         pass
     def vengeance(target):
         pass
@@ -345,14 +374,30 @@ class passAbils:
     def aggressor(target):
         pass
     def limit_break(target):
+        if not target.passTrigger:
+            target.strength+=2
+            target.skill+=2
+            target.speed+=2
+            target.luck+=2
+            target.defense+=2
+            target.resist+=2
+            target.passTrigger=True
         pass
     def nihil(): #possibly to be deprecated
         pass
     def toxicity(target):
         pass
     def mantle(target):
+        if not target.passTrigger:
+            target.enemy.wep_crit/=2 #Needs to know total crit added weapon crit for now (FullCrit?) -MK
+            target.enemy.strength-=3
+            target.passTrigger=True
         pass
     def dragonskin(target):
+        if not target.passTrigger:
+            target.enemy.wep_crit/=2 #See mantle
+            target.enemy.strength-=3
+            target.passTrigger=True
         pass
     def miracle(target):
         pass
