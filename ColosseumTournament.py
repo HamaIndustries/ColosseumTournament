@@ -53,6 +53,10 @@ class fighter:
     actTrigger=False
     calc_d=False
     roundStart=False
+    
+    #passive deactivation
+    wrathOn=False
+    resolveOn=False
 
     #temp stats
     t_strength=0
@@ -336,8 +340,27 @@ class passAbils:
                 target.avoid+=20
             target.passTrigger=True
     def resolve(target):
+        if not target.passTrigger
+            if target.hp < 50:
+                target.strength+=5
+                target.skill+=5
+                target.speed+=5
+                target.resolveOn=True
+            if target.hp > 50 and resolveOn:
+                target.strength-=5
+                target.skill-=5
+                target.speed-=5
+                target.resolveOn=False
+            target.passTrigger=True
         pass
     def wrath(target):
+        if not target.passTrigger
+            if target.HP < 50:
+                target.m_wep_crit+=30
+                target.wrathOn=True
+            if target.HP > 50 and wrathOn:
+                target.m_wep_crit-=30
+            target.passTrigger=True
         pass
     def gamble(target):
          if not target.passTrigger:
