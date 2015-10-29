@@ -101,6 +101,11 @@ class fighter:
     m_aSpeed=0
     m_avoid=0
 
+    #attack stats
+    might=0
+    hitRate=0
+    critRate=0
+    
     #enemy. set AFTER both fighters are declared,
     enemy=None
 
@@ -138,10 +143,14 @@ class fighter:
     #calculates Damage, hit & crit
     #Strength (or Magic) + Weapon Might = Attack
     def calcStats(self):
-        setTStats()
-        self.MIGHT+=self.t_strength+self.t_wep_mt
-        self.hitRate=(self.t_wep_hit+2*self.t_skill+.5*self.t_luck)-(2*self.enemy.t_speed+self.enemy.t_luck)
-        self.critRate+=(self.t_wep_crit+.5*self.t_skill+5)-self.enemy.t_luck
+        updateTStats()
+        self.might+=self.t_strength+self.t_wep_mt
+        self.hitRate=(self.t_wep_hit+2*self.t_skill+int(round(.5*self.t_luck)))-(2*self.enemy.t_speed+self.enemy.t_luck)
+        self.critRate+=(self.t_wep_crit+int(round(.5*self.t_skill+5)))-self.enemy.t_luck
+        if(self.wep.CAT=="physical"):
+            self.fullDamage=(self.might-10)*(1-.03*self.enemy.t_defense)
+        else:
+            self.fullDamage=(self.might-10)*(1-.03*self.enemy.t_resist)
 
     def prePrep(self, enemy):
         self.enemy=enemy #make sure enemy is ready
@@ -149,7 +158,7 @@ class fighter:
     def prep(self):
         pass     #where preround abilities trigger
 
-    #TODO: not entirely sure what to do with this, will work on.
+    #TODO: not entirely sure what to do with this, keeping just in case.
     def postPrep(self):
         pass
 
@@ -408,6 +417,7 @@ class weapon:
     CRIT = 0
     WEIGHT = 0
     TYP = None
+    CAT = None
     def __init__(self,typ):
         self.TYP=typ
         if(typ=="sword"):
@@ -460,6 +470,10 @@ class weapon:
             self.HIT = 55
             self.CRIT = 0
             self.WEIGHT = 7
+        if(self.TYP=="sword" or self.TYP=="lance" or self.TYP=="axe" or self.TYP=="bow" or self.TYP=="knife"):
+            self.CAT = "physical"
+        else:
+            self.CAT = "magical"
     def __str__():
         return typ
 
@@ -477,7 +491,7 @@ def fight(fitr1, fitr2, output):
     #find fighter speed difference & determine turn order
     
     while fitr1.HP>0 and fitr2.HP>0:
-    break
+        break
 
 
 
@@ -504,8 +518,13 @@ fitr2=fighter(foters[1])
 seed=raw_input("Bash your forehead against the keyboard. Or enter random stuff, idc (seed).\n")
 r.seed(seed)
 
-#Begins to print stats
+#init fightLog
+fLog = log(out)
 
+#start of round-by-round analysis
+fight(fitr1, fitr2, fLog)
+
+#begins printing results
 out.write("seed: "+str(seed)+"\n\n" +\
           ":----|:----|:----\n"+\
           "(stat)|"+fitr1.name+"|"+fitr2.name+\
@@ -515,11 +534,5 @@ out.write("seed: "+str(seed)+"\n\n" +\
           "\n Crit|"+str(fitr1.fullCrit)+"|"+str(fitr2.fullCrit)+\
           "\n Passive Skill|"+str(fitr1.pasSkills).strip("[]").strip("\'")+"|"+str(fitr2.pasSkills).strip("[]")+\
           "\n Passive Skill|"+str(fitr1.actSkills).strip("[]").strip("\'")+"|"+str(fitr2.actSkills).strip("[]"))
-
-#init fightLog
-fLog = log(out)
-
-#start of round-by-round analysis
-fight(fitr1, fitr2, fLog)
 
 out.close()
