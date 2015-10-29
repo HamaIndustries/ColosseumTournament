@@ -1,3 +1,7 @@
+from __future__ import division
+import os
+import random as r
+
 #TODO: prefight fullStats
 """
 TODO:
@@ -18,8 +22,6 @@ Magic users and Magic Barons have 5 Con, and Magic based foot units have 4 Con.
 
 
 #note to self: use dir() to check contained functions
-import os
-import random as r
 
 class fighter:
     name=None
@@ -144,9 +146,9 @@ class fighter:
     #Strength (or Magic) + Weapon Might = Attack
     def calcStats(self):
         updateTStats()
-        self.might+=self.t_strength+self.t_wep_mt
+        self.might=self.t_strength+self.t_wep_mt
         self.hitRate=(self.t_wep_hit+2*self.t_skill+int(round(.5*self.t_luck)))-(2*self.enemy.t_speed+self.enemy.t_luck)
-        self.critRate+=(self.t_wep_crit+int(round(.5*self.t_skill+5)))-self.enemy.t_luck
+        self.critRate=(self.t_wep_crit+int(round(.5*self.t_skill+5)))-self.enemy.t_luck
         if(self.wep.CAT=="physical"):
             self.fullDamage=(self.might-10)*(1-.03*self.enemy.t_defense)
         else:
@@ -487,7 +489,7 @@ def fight(fitr1, fitr2, output):
     fitr1.postPrep()
     fitr2.postPrep()
     
-    #Update both Tstats
+    #TODO: Update both Tstats somewhere in the preps, probably multiple times ^
     #find fighter speed difference & determine turn order
     
     while fitr1.HP>0 and fitr2.HP>0:
