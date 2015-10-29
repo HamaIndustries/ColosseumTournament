@@ -43,9 +43,8 @@ class fighter:
     wepB_crit=0
     wepB_wt=0
     wepAbil=None
-    fullDamage=0
-    fullHit=0
-    fullCrit=0
+    
+    
 
     aSpeed=0
     avoid=0
@@ -107,6 +106,7 @@ class fighter:
     might=0
     hitRate=0
     critRate=0
+    fullDamage=0
     
     #enemy. set AFTER both fighters are declared,
     enemy=None
@@ -499,42 +499,47 @@ def fight(fitr1, fitr2, output):
 
 #MAIN, out of a def because this ain't a module its a script
 
-print("\nColosseum Tournament calc v1 -- normal mode.\n+--------------------------------------+\nRemember, no errors are checked. Please input the correct data.\n\n")
+def main(fitr1=None,fitr2=None):
+    print("\nColosseum Tournament calc v1 -- normal mode.\n+--------------------------------------+\nRemember, no errors are checked. Please input the correct data.\n\n")
 
-#Creates/opens output, writes errors to it
-if (os.path.isfile(os.path.dirname(os.path.realpath(__file__))+"/output.txt")):
-    os.remove(os.path.dirname(os.path.realpath(__file__))+"/output.txt")
-out=open(os.path.dirname(os.path.realpath(__file__))+"/output.txt", "w+")
+    #Creates/opens output, writes errors to it
+    if (os.path.isfile(os.path.dirname(os.path.realpath(__file__))+"/output.txt")):
+        os.remove(os.path.dirname(os.path.realpath(__file__))+"/output.txt")
+    out=open(os.path.dirname(os.path.realpath(__file__))+"/output.txt", "w+")
 
-#Opens fighter file, reads them & creates fighter objects
-try:
-    foters=open(os.path.dirname(os.path.realpath(__file__))+"/input.txt","r").read().split("-------")
-except IOError:
-    out.write("No input.txt file found in this directory!")
-    sys.exit()
+    #Opens fighter file, reads them & creates fighter objects
+    try:
+        foters=open(os.path.dirname(os.path.realpath(__file__))+"/input.txt","r").read().split("-------")
+    except IOError:
+        out.write("No input.txt file found in this directory!")
+        sys.exit()
     
-fitr1=fighter(foters[0])
-fitr2=fighter(foters[1])
+    if fitr1==None:
+        fitr1=fighter(foters[0])
+        fitr2=fighter(foters[1])
 
-#Creates seed & seeds the generator
-seed=raw_input("Bash your forehead against the keyboard. Or enter random stuff, idc (seed).\n")
-r.seed(seed)
+    #Creates seed & seeds the generator
+    seed=raw_input("Bash your forehead against the keyboard. Or enter random stuff, idc (seed).\n")
+    r.seed(seed)
 
-#init fightLog
-fLog = log(out)
+    #init fightLog
+    fLog = log(out)
 
-#start of round-by-round analysis
-fight(fitr1, fitr2, fLog)
+    #start of round-by-round analysis
+    fight(fitr1, fitr2, fLog)
 
-#begins printing results
-out.write("seed: "+str(seed)+"\n\n" +\
-          ":----|:----|:----\n"+\
-          "(stat)|"+fitr1.name+"|"+fitr2.name+\
-          "\n HP|"+str(fitr1.HP)+"|"+str(fitr2.HP)+\
-          "\n Damage|"+str(fitr1.fullDamage)+"|"+str(fitr2.fullDamage)+\
-          "\n Hit|"+str(fitr1.fullHit)+"|"+str(fitr2.fullHit)+\
-          "\n Crit|"+str(fitr1.fullCrit)+"|"+str(fitr2.fullCrit)+\
-          "\n Passive Skill|"+str(fitr1.pasSkills).strip("[]").strip("\'")+"|"+str(fitr2.pasSkills).strip("[]")+\
-          "\n Passive Skill|"+str(fitr1.actSkills).strip("[]").strip("\'")+"|"+str(fitr2.actSkills).strip("[]"))
+    #begins printing results
+    out.write("seed: "+str(seed)+"\n\n" +\
+              ":----|:----|:----\n"+\
+              "(stat)|"+fitr1.name+"|"+fitr2.name+\
+              "\n HP|"+str(fitr1.HP)+"|"+str(fitr2.HP)+\
+              "\n Damage|"+str(fitr1.fullDamage)+"|"+str(fitr2.fullDamage)+\
+              "\n Hit|"+str(fitr1.fullHit)+"|"+str(fitr2.fullHit)+\
+              "\n Crit|"+str(fitr1.fullCrit)+"|"+str(fitr2.fullCrit)+\
+              "\n Passive Skill|"+str(fitr1.pasSkills).strip("[]").strip("\'")+"|"+str(fitr2.pasSkills).strip("[]")+\
+              "\n Passive Skill|"+str(fitr1.actSkills).strip("[]").strip("\'")+"|"+str(fitr2.actSkills).strip("[]"))
 
-out.close()
+    out.close()
+    
+if(__name__=='__main__'):
+    main()
