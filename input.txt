@@ -31,3 +31,30 @@ Axe
 0
 0
 Panic Heal
+++++++++Anything on or past this line is ignored by the script.
+each stat is added as such:
+
+(beginfile)
+Name
+Active skill(s, maybe someday) (may use spaces and uppercase letters, but MUST be spelt correctly)
+Passive skill(s?) (same)
+HP
+Strength
+Skill
+Speed
+Luck
+Defense
+Resist
+Weapon/Magic name
+Final weapon might (including weapon bonuses)
+Final weapon hit (")
+Final weapon crit (")
+Final weapon weight (")
+Weapon ability/ies (ies for sure due to devil/etc.)
+(if first fighter, put seven -'s beneath stats and put next fighter under that.)
+(endfile)
+
+(TODO: add constitution)
+
+
+
